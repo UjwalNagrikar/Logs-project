@@ -1,3 +1,4 @@
+
 # LogX - Serverless Real-Time Log Analysis Platform
 
 ## Quick Start
@@ -105,3 +106,141 @@ Contributions are welcome! Please submit a pull request or open an issue for any
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for more details.
+
+# LogX Dashboard
+
+A full-stack log analytics and visualization platform built with Flask, Streamlit, Dash, and supporting AWS Lambda for log parsing. The project enables ingestion, search, and visualization of logs from various sources.
+
+---
+
+## Project Structure
+
+```
+Logs-project/
+│
+├── api/                # Flask REST API for log search and stats
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   └── search_api.py
+│
+├── dashboard/          # Streamlit & Dash dashboard for log analytics
+│   ├── app.py
+│   ├── requirements.txt
+│   └── ...
+│
+├── lambda/             # AWS Lambda log parser
+│   ├── log_parser.py
+│   └── requirements.txt
+│
+├── scripts/            # Utility scripts (e.g., log generator)
+│   └── log_generator.py
+│
+├── tests/              # Unit tests
+│   ├── test_api.py
+│   └── test_parser.py
+│
+├── docker-compose.yml  # (Optional) For multi-service orchestration
+└── README.md           # Project documentation
+```
+
+---
+
+## Features
+
+- **Log Ingestion & Search:** REST API for searching and aggregating logs.
+- **Dashboard:** Interactive analytics dashboard with filters, charts, and log timeline.
+- **AWS Lambda Integration:** For scalable log parsing and ingestion.
+- **Dockerized:** Easy deployment using Docker.
+- **Custom Filters:** Filter logs by time, level, source, and search query.
+- **Auto-refresh:** Option to auto-refresh dashboard data.
+
+---
+
+## Getting Started
+
+### 1. Clone the Repository
+
+```sh
+git clone https://github.com/yourusername/Logs-project.git
+cd Logs-project
+```
+
+### 2. Build and Run the API Service
+
+```sh
+cd api
+pip install -r requirements.txt
+python search_api.py
+```
+Or with Docker:
+```sh
+docker build -t logs-api .
+docker run -p 5000:5000 logs-api
+```
+
+### 3. Build and Run the Dashboard
+
+```sh
+cd ../dashboard
+pip install -r requirements.txt
+streamlit run app.py
+```
+- The dashboard will be available at [http://localhost:8501](http://localhost:8501).
+
+### 4. (Optional) Run Lambda Parser
+
+```sh
+cd ../lambda
+pip install -r requirements.txt
+python log_parser.py
+```
+
+---
+
+## Configuration
+
+- **API Endpoint:**  
+  The dashboard expects the API to be available at `http://localhost:5000/api`.  
+  Update `API_BASE_URL` in `dashboard/app.py` if your API runs elsewhere.
+
+- **Ports:**  
+  - API: `5000`
+  - Dashboard: `8501` (Streamlit default)
+
+---
+
+## Usage
+
+- **Open the dashboard** in your browser.
+- **Apply filters** (time range, log level, source, search query).
+- **View analytics**: log timeline, source distribution, log level distribution, and recent logs.
+- **Logs API**: Use `/api/search` and `/api/stats` endpoints for programmatic access.
+
+---
+
+## Logging & Monitoring
+
+- **API logs**: Output to terminal or log file (if configured).
+- **Dashboard logs**: Output to terminal running Streamlit.
+- **AWS CloudWatch**: (Optional) Configure CloudWatch agent for centralized log monitoring.
+
+---
+
+## Troubleshooting
+
+- **Dashboard shows connection error:**  
+  Ensure the API service is running and accessible at the configured URL/port.
+
+- **ModuleNotFoundError:**  
+  Double-check all dependencies are installed using the provided `requirements.txt`.
+
+- **Port conflicts:**  
+  Make sure required ports (5000, 8501) are free or update the code/config to use different ports.
+
+---
+
+## License
+
+MIT License
+
+---
